@@ -11,7 +11,7 @@ def calc():
 
     # TAKING INPUTS
     num1 = int(input("Enter first number: "))
-    num2 = int(input("Enter first number: "))
+    num2 = int(input("Enter second number: "))
 
     print(f"you have entered {num1} and {num2} for the calculation\n")
     print(
