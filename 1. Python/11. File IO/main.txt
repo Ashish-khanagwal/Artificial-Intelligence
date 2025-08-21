@@ -1,0 +1,3 @@
+First we got to know, how to write a file.
+Second we got to know, how to write in a file.
+Third, we got to know how to read a file line by line.

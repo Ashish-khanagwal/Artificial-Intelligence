@@ -10,11 +10,11 @@ n = float(input("Enter the value in inhces you want to converted in to cms: "))
 print(f"Converted value of {n}inches into centimeters is: {conversion(n)}")
 
 
-def pattern(n):
-    if n == 0:
-        return
-    for i in range(n, 0, -1):
-        print("*" * i)
-
-
-pattern(0)
+# def pattern(n):
+#     if n == 0:
+#         return
+#     for i in range(n, 0, -1):
+#         print("*" * i)
+#
+#
+# pattern(0)
