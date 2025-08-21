@@ -1,7 +1,7 @@
 print("***" + "*" * 14 + "***")
 print("*" + "File I/O".center(18) + "*")
 print("***" + "*" * 14 + "***\n")
-print("Hello world")
+
 # Reading a file
 f = open("main.txt")
 data = f.read()
