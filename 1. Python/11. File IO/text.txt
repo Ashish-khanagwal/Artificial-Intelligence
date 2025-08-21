@@ -1,0 +1,2 @@
+It is the first line
+Python file IO is easy.

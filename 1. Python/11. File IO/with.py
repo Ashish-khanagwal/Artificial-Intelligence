@@ -25,3 +25,7 @@ with open("main.txt") as file:
     line_count = len(lines)
 
 print("Number of lines: ", line_count)
+
+with open("text.txt", "w") as f:
+    f.write("It is the first line\n")
+    f.write("Python file IO is easy.")

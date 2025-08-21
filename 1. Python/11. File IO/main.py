@@ -13,6 +13,10 @@ f = open("main.txt", "w")
 f.write(st)
 print("")
 
+# 'w' overwrites the file if it exists
+#
+# 'a' appends content to existing file
+
 # Reading lines in a file
 f = open("main.txt")
 # lines = f.readlines()
