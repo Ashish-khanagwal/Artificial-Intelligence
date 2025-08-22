@@ -1,0 +1,1 @@
+Multiplicatin table for 11 is : [11, 22, 33, 44, 55, 66, 77, 88, 99, 110]
