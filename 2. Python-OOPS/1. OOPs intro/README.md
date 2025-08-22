@@ -1,6 +1,11 @@
-- [Instance-Methods](#7-instance-methods)
+- [Class](#1-class)
+- [Object](#2-object)
+- [Attributes and Methods](#3-attributes-and-methods)
+- [Constructor Method](#4-constructor-method)
+- [Self-Keyword](#5-self-Keyword)
+- [Instance-Methods](#6-instance-methods)
 
-### Class:
+### 1. Class:
 
 - A class is a blueprint for creating objects.
 - It defines a set of attributes and behaviors (methods) that the created objects will have.
@@ -10,7 +15,7 @@ class MyClass
     pass
 ```
 
-### Object:
+### 2. Object:
 
 - An object is an instance of a class.
 - it has the properties and behaviors defined by the class.
@@ -19,7 +24,7 @@ class MyClass
 obj = MyClass()
 ```
 
-### Attributes and Methods:
+### 3. Attributes and Methods:
 
 - Attributes: Variables inside a class that store data
 - Methods: Functions inside a class that define behaviours.
@@ -36,8 +41,9 @@ dog = Dog("Bruno", 4)              --> Object
 dog.bark()                         --> Calling Method
 ```
 
-### `__init__` Constructor Method
+### 4. Constructor Method
 
+- `__init__`
 - Automatically called when a new object is created.
 - Used to initialize attributes of the object.
 
@@ -47,13 +53,13 @@ def __init__(self, param1, param2):
     self.param2 = param2
 ```
 
-### `self` Keyword
+### 5. self Keyword
 
 - Represents the instance of the class.
 - Allows access to the attributes and methods of the class in Python.
 - Must be the first parameter of instance methods.
 
-### 7. Instance Methods
+### 6. Instance Methods
 
 - Methods that work with the instance/object data.
 - Can access and modify object state.
