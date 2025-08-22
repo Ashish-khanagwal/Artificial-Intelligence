@@ -1,4 +1,4 @@
-- [Instance-Methods](#instance-methods)
+- [Instance-Methods](#7-instance-methods)
 
 ### Class:
 
