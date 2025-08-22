@@ -53,7 +53,7 @@ def __init__(self, param1, param2):
 - Allows access to the attributes and methods of the class in Python.
 - Must be the first parameter of instance methods.
 
-### Instance Methods
+### 7. Instance Methods
 
 - Methods that work with the instance/object data.
 - Can access and modify object state.
