@@ -1,3 +1,5 @@
+<h1 align=center>BASICS</h1>
+
 - [Class](#1-class)
 - [Object](#2-object)
 - [Attributes and Methods](#3-attributes-and-methods)
