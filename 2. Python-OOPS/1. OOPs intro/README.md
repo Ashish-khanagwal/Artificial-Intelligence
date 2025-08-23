@@ -6,6 +6,7 @@
 - [Constructor Method](#4-constructor-method)
 - [Self-Keyword](#5-self-Keyword)
 - [Instance-Methods](#6-instance-methods)
+- [Class Attributes and Instance Attributes](#7-class-attributes-and-instance-attributes)
 
 ### 1. Class:
 
@@ -89,4 +90,21 @@ my_car.paint("blue")  # Change the color using instance method
 my_car.display()      # Output: This car is a blue Toyota.
 ```
 
-### Class Attributes vs. Instance Attributes
+### 7. Class Attributes and Instance Attributes
+
+- Instance attributes are unique to each object.
+- Class attributes are shared across all instances.
+
+```
+class Dog:
+    species = "Canis familiaris"  # Class attribute
+
+    def __init__(self, name):
+        self.name = name  # Instance attribute
+
+dog1 = Dog("Buddy")
+dog2 = Dog("Max")
+
+print(dog1.species)  # Canis familiaris
+print(dog2.species)  # Canis familiaris
+```
