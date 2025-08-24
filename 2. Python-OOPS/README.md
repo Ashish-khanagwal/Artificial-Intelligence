@@ -4,3 +4,4 @@ Object-Oriented Programming (OOP) in Python is a programming paradigm that uses 
 
 - [Basics of OOPs](1.%20OOPs%20intro/README.md)
 - [Encapsulation](2.%20Encapsulation/README.md)
+- [Abstraction](3.%20Abstraction/README.md)
