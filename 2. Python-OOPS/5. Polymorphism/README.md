@@ -3,6 +3,7 @@
 - [Method Overriding](#method-overriding)
 - [Duck Typing](duck-typing)
 - [Method Overloading](#method-overloading)
+- [Operator Overloading](#operator-overloading)
 
 ### What is Polymorphism?
 
@@ -144,3 +145,75 @@ calc.add(1, 2, 3, 4, 5)  # Sum of 1, 2 and (3, 4, 5) = 15
 
 These techniques allow you to write methods that can handle different numbers and types of arguments, effectively mimicking method overloading.
 So, while method overloading as a language feature isn’t supported in Python, you achieve similar behavior by writing versatile, flexible methods.
+
+### Operator Overloading
+
+Operator overloading is a feature in Python that allows you to define custom behavior for standard operators (like +, -, \*, ==, etc.) when they are used with objects of your own classes. This makes your objects behave more intuitively and flexibly, much like built-in types (e.g., adding two strings concatenates them, adding two numbers sums them).
+
+- Key Terminologies:
+  - Operator: Symbols like +, -, \*, == that perform operations.
+  - Operands: The values or objects the operators act on.
+  - Magic/Dunder Methods: Special methods with double underscores (e.g., **add**, **eq**) that Python calls automatically for operator overloading.
+  - Operands' Types: Operator behavior can differ depending on the types involved.
+
+- How It Works
+  - Define a special magic method in your class—Python maps each operator to a method (such as **add** for +).
+  - When the operator is used, Python automatically calls this method on your objects.
+
+- Common Operator overloading methods
+  | Operator | Magic Method |
+  | :------- | :------: |
+  | + | \_\_add\_\_ |
+  | - | \_\_sub\_\_ |
+  | \* | \_\_mul\_\_ |
+  | == | \_\_eq\_\_ |
+  | > | \_\_gt\_\_ |
+  | < | \_\_lt\_\_ |
+
+- Python Built-in Operator Overloading Examples
+- 1 + 2 calls int.**add**.
+- "Hello" + "World" calls str.\_\_add\_\_ (concatenation).
+- [1,2] + [3,4] calls list.\_\_add\_\_ (merging lists).
+
+<h4>Reflected (Reverse) Methods</h4>
+
+- Reflected (Reverse) Methods help Python handle operators when the left-side object doesn’t know what to do with the operation—especially with mixed types (like an int and a custom object).
+
+- Simple Explanation:
+  - When you write 5 + my_object, Python first tries int.**add**(my_object).
+  - If the built-in int class doesn't know how to add my_object, Python tries the reverse method on your object: my_object.**radd**(5).
+  - This lets your custom class control how it interacts with built-in types when your object is on the right side of the operator.
+
+  ```
+  class MyNumber:
+    def __init__(self, value):
+        self.value = value
+
+    def __add__(self, other):
+        # For expressions like my_object + 5
+        return MyNumber(self.value + other)
+
+    def __radd__(self, other):
+        # For expressions like 5 + my_object
+        return MyNumber(self.value + other)
+
+    def __repr__(self):
+        return f"MyNumber({self.value})"
+
+    num = MyNumber(10)
+
+  print(num + 5)   # Calls __add__: MyNumber(15)
+  print(5 + num)   # Calls __radd__: MyNumber(15)
+  ```
+
+  - num + 5 calls MyNumber.**add**(num, 5).
+  - 5 + num first tries int.**add**(num), fails, then calls MyNumber.**radd**(num, 5).
+  - \_\_repr\_\_
+    - \_\_repr\_\_ is a special method in Python that tells Python how to represent your object as a string.
+    - When you print an object, Python calls this method to get a meaningful string to display.
+    - If you don’t define it, Python shows a default message showing the object’s memory address, which looks like gibberish (e.g., <\_\_main\_\_.Vector object at 0x100e1d3d0>).
+
+<h4>Chaining Operator Overloads</h4>
+
+- Operator overloads can be used in chains, especially arithmetic operators.
+  It's important to return a new object (or a suitable value) in magic methods to allow further operations.
