@@ -1,7 +1,6 @@
-from config import api_key
 from openai import OpenAI
 
-client = OpenAI(api_key=api_key)
+client = OpenAI()
 
 completion = client.chat.completions.create(
     model="gpt-3.5-turbo",

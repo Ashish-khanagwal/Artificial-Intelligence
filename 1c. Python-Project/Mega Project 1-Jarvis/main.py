@@ -6,7 +6,6 @@ import pygame
 import pyttsx3
 import requests
 import speech_recognition as sr
-from config import api_key, newsapi
 from gtts import gTTS
 from openai import OpenAI
 
@@ -41,7 +40,6 @@ def speak(text):
 
 def aiProcessPerplexity(command):
     client = OpenAI(
-        api_key=api_key,
         base_url="https://api.perplexity.ai",  # Pointing to Perplexity's API endpoint
     )
 
@@ -74,7 +72,7 @@ def processCommand(c):
         webbrowser.open(link)
     elif "news" in c.lower():
         r = requests.get(
-            f"https://newsapi.org/v2/top-headlines?country=in&apiKey={newsapi}"
+            f"https://newsapi.org/v2/top-headlines?country=in&apiKey={}"
         )
         if r.status_code == 200:
             data = r.json()
