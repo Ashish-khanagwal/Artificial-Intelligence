@@ -6,12 +6,12 @@ import pygame
 import pyttsx3
 import requests
 import speech_recognition as sr
+from config import api_key, newsapi
 from gtts import gTTS
 from openai import OpenAI
 
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
-newsapi = "5f3d6d7f608740e2aeb522150d5f5183"
 
 
 def speak_old(text):
@@ -41,7 +41,7 @@ def speak(text):
 
 def aiProcessPerplexity(command):
     client = OpenAI(
-        api_key="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",
+        api_key=api_key,
         base_url="https://api.perplexity.ai",  # Pointing to Perplexity's API endpoint
     )
 
