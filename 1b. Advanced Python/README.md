@@ -7,6 +7,7 @@
 - [Exception Handling](#exception-handling)
 - [Modules](#modules)
 - [List Comprehension](#list-comprehension)
+- [Lambda Function](#lambda-function)
 
 ## Walrus Operator
 
@@ -343,3 +344,47 @@ print(squares)
 squared = [x**2 for x in range(11) if x % 2 == 0]
 print(squared)
 ```
+
+## Lambda Function
+
+- A lambda function is a small anonymous function defined with the lambda keyword.
+- It can have any number of arguments, but only one expression.
+- The expression is evaluated and returned automatically.
+- Used for short, simple functions without formally defining a full function using def.
+
+#### Basic syntax and Notation
+
+```
+lambda arguments: expression
+```
+
+- arguments: zero or more inputs separated by commas.
+- expression: single expression evaluated and returned.
+
+#### Simple Lambda Function
+
+```
+add = lambda x, y: x + y
+print(add(2, 3))  # Output: 5
+```
+
+- Equivalent regular function
+
+```
+def add(x, y):
+    return x + y
+
+print(add(2, 3))  # Output: 5
+```
+
+#### Limitations of Lambda Functions
+
+- Limited to a single expression (no statements or multiple expressions).
+- Less readable for complex logic.
+- No function name (anonymous), less descriptive in tracebacks or debugging.
+
+#### When to Use Lambda Functions?
+
+- For quick, small functions used temporarily.
+- When passing functions as arguments (callbacks, sorting keys, etc.).
+- To avoid boilerplate code of defining full functions for simple operations.
