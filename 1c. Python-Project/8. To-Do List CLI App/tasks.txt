@@ -1,0 +1,3 @@
+GYM -> Go to gym at 7am.
+CODE -> Complete python project
+PLAY -> play cricket at 4pm
