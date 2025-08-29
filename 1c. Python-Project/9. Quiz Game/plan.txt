@@ -1,0 +1,3 @@
+- ask for hint (if don't know the answer, just one)
+- still don't know the answer skip and it will be addedd to not-answered and .5 point will be deducted.
+
