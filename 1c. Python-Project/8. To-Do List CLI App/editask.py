@@ -1,6 +1,10 @@
 def edit_task():
-    with open("tasks.txt", "r") as file:
-        lines = file.readlines()
+    try:
+        with open("tasks.txt", "r") as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print("No tasks.txt file found.")
+        return
 
     print("Current tasks:")
     for line in lines:

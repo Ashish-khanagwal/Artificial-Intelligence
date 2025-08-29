@@ -4,12 +4,15 @@ def strikethrough(text):
 
 def markdone_task():
     data = {}
-    with open("tasks.txt") as file:
-        for line in file:
-            line = line.strip()
-            if "->" in line:
-                key, value = line.split("->", 1)
-                data[key.strip()] = value.strip()
+    try:
+        with open("tasks.txt", "r") as file:
+            for line in file:
+                if "->" in line:
+                    key, value = line.split("->", 1)
+                    data[key.strip().upper()] = value.strip()
+    except FileNotFoundError:
+        print("No tasks.txt file found.")
+        return
 
     user_key = input("Enter the task key to strikethrough: ").upper()
 
@@ -28,4 +31,4 @@ def markdone_task():
 
         print(f"Completed task '{user_key}' moved to completedtask.txt file.")
     else:
-        print("Task key not found.")
+        print("Task not found.")
