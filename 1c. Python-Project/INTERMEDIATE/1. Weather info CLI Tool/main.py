@@ -1,1 +1,1 @@
-print("How's the weather today????")
+print("Weather Information")
