@@ -5,6 +5,11 @@
 - [Join](#join)
 - [File data into list](#file-data-into-list)
 - [File Handling](#file-handling)
+- [Updating Keys and Values](#updating-keys-and-values)
+- [Understanding CSV File](#understanding-csv-file)
+- [Password Masking](#password-masking)
+- [Password Validation](#password-validation)
+- [List Concatenation](#list-concatenation)
 
 ## map
 
@@ -433,3 +438,312 @@ username JohnDoe123
 ```
 
 - `"task1"` and `"username"` are keys, `"Do the laundry today"` and `"JohnDoe123"` are values.
+
+## Updating Keys and Values
+
+### Overview
+
+A Python dictionary (dict) stores key-value pairs—unique keys mapped to corresponding values. Updating a dictionary involves changing existing keys, their values, or both.
+
+### 1. Updating a Value for an Existing Key
+
+- You can directly assign a new value to a key.
+- If the key exists, its value is replaced.
+- If the key doesn’t exist, a new key-value pair is created.
+
+```
+my_dict = {'name': 'Alice', 'age': 25}
+my_dict['age'] = 26  # Updates existing 'age'
+my_dict['city'] = 'New York'  # Adds new key 'city'
+
+print(my_dict)
+# Output: {'name': 'Alice', 'age': 26, 'city': 'New York'}
+```
+
+### 2. Updating Multiple Key-Value Pairs
+
+- Use the .update() method to update/add many pairs at once from another dictionary or iterable of key-value pairs.
+
+```
+my_dict = {'name': 'Alice', 'age': 25}
+updates = {'age': 26, 'city': 'New York'}
+my_dict.update(updates)
+
+print(my_dict)
+# Output: {'name': 'Alice', 'age': 26, 'city': 'New York'}
+```
+
+### 3. Changing a Key (the Key Itself)
+
+- Dictionaries do not support direct key renaming because keys are immutable.
+- To "rename" a key:
+  - Add a new key with the value of the old key.
+  - Delete the old key.
+
+```
+my_dict = {'name': 'Alice', 'age': 25}
+
+# Rename key 'name' to 'first_name'
+my_dict['first_name'] = my_dict.pop('name')
+
+print(my_dict)
+# Output: {'age': 25, 'first_name': 'Alice'}
+```
+
+### 4. Modifying Both Keys and Values
+
+- Since keys must be unique and immutable, changing keys involves reassigning.
+- Values can be directly edited.
+
+For multiple key changes:
+
+```
+my_dict = {'a': 1, 'b': 2, 'c': 3}
+new_dict = {}
+
+for k, v in my_dict.items():
+    new_key = k.upper()  # Example: change key to uppercase
+    new_value = v * 10   # Example: modify value
+    new_dict[new_key] = new_value
+
+print(new_dict)
+# Output: {'A': 10, 'B': 20, 'C': 30}
+```
+
+### 5. Important Points
+
+- Keys must be immutable types (strings, numbers, tuples); you cannot modify keys in place.
+- Values can be any type and freely updated.
+- Use .pop(key) to remove a key while retrieving its value.
+- .update() can merge two dictionaries and overwrite existing keys.
+- Be mindful of dictionary size—modifying keys usually means creating a new dictionary or restructuring.
+
+Example function to rename a key and update its value:
+
+```
+def rename_key_and_update_value(d, old_key, new_key, new_value):
+    if old_key in d:
+        d[new_key] = new_value
+        if new_key != old_key:
+            del d[old_key]
+    else:
+        print(f"Key {old_key} not found!")
+
+my_dict = {'name': 'Alice', 'age': 25}
+rename_key_and_update_value(my_dict, 'name', 'first_name', 'Bob')
+print(my_dict)
+# Output: {'age': 25, 'first_name': 'Bob'}
+```
+
+## Understanding CSV File
+
+### What are csv.DictReader and csv.DictWriter?
+
+- They are classes from Python’s built-in csv module that read and write CSV files using dictionaries instead of plain lists.
+- Each row is handled as a dictionary where keys are column headers and values are the respective cell values.
+
+### Why use DictReader and DictWriter over csv.reader and csv.writer?
+
+#### 1. Readability and Convenience
+
+- With DictReader, you access columns by header names (keys) rather than numeric indexes, which makes code easier to read and maintain.
+
+Example with csv.reader (using indexes):
+
+```
+import csv
+
+with open("data.csv") as f:
+    reader = csv.reader(f)
+    headers = next(reader)
+    for row in reader:
+        print(row[0], row[2])  # Access columns by index (e.g., name, age)
+```
+
+Versus DictReader (using keys):
+
+```
+import csv
+
+with open("data.csv") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row['Name'], row['Age'])  # Use column headers
+```
+
+#### 2. Robustness to Column Order
+
+- DictReader does not rely on the order of columns in the CSV file, only on the column headers.
+- Safer when column order may change or files come from varying sources.
+
+#### 3. Writing CSV with Column Labels
+
+- DictWriter writes rows as dictionaries, automatically placing values under the correct header column.
+- You specify the fieldnames (columns) once, then write rows keyed by headers.
+
+Example:
+
+```
+import csv
+
+fieldnames = ['Name', 'Age']
+with open('output.csv', 'w', newline='') as f:
+    writer = csv.DictWriter(f, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerow({'Name': 'Alice', 'Age': 30})
+    writer.writerow({'Name': 'Bob', 'Age': 25})
+```
+
+Without DictWriter, writing requires managing columns by position explicitly.
+
+#### 4. Easier Data Manipulation
+
+- When reading, DictReader gives you a dictionary of values, which is often easier to use with other data structures or business logic.
+- When writing, providing data as dictionaries is natural for many applications.
+
+#### Things to Know When Using DictReader and DictWriter
+
+- Header row is required: DictReader reads the first line as the header by default.
+- If your CSV has no header, you can provide fieldnames manually:
+
+```
+reader = csv.DictReader(f, fieldnames=['col1', 'col2', 'col3'])
+```
+
+- When writing with DictWriter, make sure the keys in your data match the fieldnames.
+- Use newline='' when opening files for writing to avoid extra blank lines on some platforms.
+- They work well with Unicode and different encodings (open file with correct encoding).
+
+## Password Masking
+
+```
+password = "mypassword123"
+secret_password = "*" * len(password)
+print(secret_password)  # Output: *************
+```
+
+#### What does this do?
+
+- It creates a masked version of a password by replacing each character with an asterisk (\*).
+- The number of asterisks equals the length of the original password, showing the length but hiding the actual characters.
+
+#### How does it work?
+
+- len(password) calculates the number of characters in the password string.
+- The _ operator with strings performs repetition, creating a new string with the asterisk (_) repeated that many times.
+
+#### Why use this?
+
+- To hide sensitive information like passwords when displaying them on a screen or logging.
+- Shows the length of the password without revealing the actual characters.
+- Useful in UI or console programs to confirm input was received without exposing secrets.
+
+## Password Validation
+
+```
+has_upper = any(c.isupper() for c in password)
+has_lower = any(c.islower() for c in password)
+has_digit = any(c.isdigit() for c in password)
+has_special = any(c in string.punctuation for c in password)
+```
+
+#### These lines check whether a password contains at least one character of each category:
+
+- Uppercase letter
+- Lowercase letter
+- Digit (0-9)
+- Special character (punctuation marks)
+
+#### How does it work?
+
+- any() is a built-in function that returns True if any element of the iterable is truthy.
+- c.isupper(), c.islower(), c.isdigit() are string methods that return True if the character c matches that type.
+- string.punctuation is a constant string containing all special punctuation characters, such as !@#$%^&\*(), etc.
+- The expressions use generator comprehensions to efficiently check every character c in password without building intermediate lists.
+
+#### Step-by-step:
+
+- any(c.isupper() for c in password): Checks if any character in password is uppercase.
+- any(c.islower() for c in password): Checks if any character in password is lowercase.
+- any(c.isdigit() for c in password): Checks if any character in password is a digit.
+- any(c in string.punctuation for c in password): Checks if any character is a special symbol.
+
+Example:
+
+```
+import string
+
+password = "MyP@ssw0rd"
+
+has_upper = any(c.isupper() for c in password)     # True ('M', 'P')
+has_lower = any(c.islower() for c in password)     # True ('y', 's', 's', 'w', 'r', 'd')
+has_digit = any(c.isdigit() for c in password)     # True ('0')
+has_special = any(c in string.punctuation for c in password)  # True ('@')
+
+print(has_upper, has_lower, has_digit, has_special)
+# Output: True True True True
+```
+
+#### Why use this in projects?
+
+- To enforce strong password policies by ensuring passwords have diverse character types.
+- Efficient and readable way to validate password complexity.
+- Using any() and generator expressions is memory-efficient as it stops checking as soon as it finds a matching character.
+
+## List Concatenation
+
+### What does `list = c_alpha + l_alpha + num + s_char` mean?
+
+- This expression joins multiple lists into a single list by using the + operator.
+- The + operator for lists performs list concatenation, i.e., it combines all elements from each list into a new list.
+
+#### How does it work?
+
+Suppose you have multiple lists:
+
+```
+c_alpha = ['A', 'B', 'C']        # Capital letters
+l_alpha = ['a', 'b', 'c']        # Lowercase letters
+num = ['1', '2', '3']            # Numbers as strings
+s_char = ['!', '@', '#']         # Special characters
+```
+
+Using + to concatenate:
+
+```
+combined_list = c_alpha + l_alpha + num + s_char
+print(combined_list)
+# Output: ['A', 'B', 'C', 'a', 'b', 'c', '1', '2', '3', '!', '@', '#']
+```
+
+- A new list combined_list is created containing all elements of the given lists in order.
+
+#### Important aspects:
+
+- Order matters: Elements are added in the order of lists.
+- The original lists remain unchanged.
+- `+` creates a new list, so if the original lists are long, this can impact memory.
+
+#### Alternative ways:
+
+Using list.extend() method to modify one list in-place:
+
+```
+c_alpha.extend(l_alpha)
+c_alpha.extend(num)
+c_alpha.extend(s_char)
+print(c_alpha)
+# Same combined contents, but original c_alpha modified
+```
+
+Using list comprehension or unpacking (Python 3.5+):
+
+```
+combined = [*c_alpha, *l_alpha, *num, *s_char]
+```
+
+#### Why join lists like this?
+
+- Useful for combining character sets when building password pools.
+- Combines data from different sources into one for processing.
+- Makes iteration over multiple groups simpler.
