@@ -1,0 +1,5 @@
+Hello
+This is the new fileThis is how we append text in file
+first line 
+second line 
+third line
