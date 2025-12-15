@@ -61,3 +61,17 @@ Why does this work?
 Because python keeps the variables alive if an inner function
 still needs them.
 """
+
+
+def outer_box(msg):
+    def inner_box():
+        print(msg)
+
+    return inner_box
+
+
+hi = outer_box("hello")
+hello = outer_box("hey hey")
+
+hi()
+hello()
